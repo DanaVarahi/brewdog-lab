@@ -1,6 +1,6 @@
 <template>
   <ul>
-      <beer-list-item v-for="(beer, id) in beers" :beer="beer" :key="id">{{ beer.name}}</beer-list-item>
+      <beer-list-item v-for="(beer, id) in beers" :beer="beer" :key="id"></beer-list-item>
   </ul>
 </template>
 
@@ -12,7 +12,6 @@ export default {
     components: {
         "beer-list-item": BeerListItem
     }
-
 }
 </script>
 
