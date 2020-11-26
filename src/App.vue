@@ -1,28 +1,40 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div> 
+    <h1>BrewDog Beers</h1>
+    <beers-list :beers="beers"></beers-list>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import BeersList from './components/BeersList.vue'
+import {eventBus} from './main.js'
 
 export default {
-  name: 'App',
+  data(){
+    return {
+      beers: [],
+      favourite: false,
+      selectedBeer: null
+    }
+  },
   components: {
-    HelloWorld
+      "beers-list": BeersList
+  },
+  mounted(){
+    fetch('https://api.punkapi.com/v2/beers')
+    .then( res => res.json())
+    .then(beers => this.beers = beers)
+
+    eventBus.$on('beer-selected', (beer) => {
+      this.selectedBeer = beer
+    })
+
+    }
   }
-}
+
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
+<style scoped>
+
 </style>
